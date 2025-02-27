@@ -1,0 +1,17 @@
+{
+  "name": "astro-sst-containers-demo",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.1.0",
+    "astro": "^5.3.0",
+    "astro-sst": "2.45.2",
+    "sst": "3.9.10"
+  }
+}
