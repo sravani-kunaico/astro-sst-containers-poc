@@ -10,15 +10,15 @@ export default $config({
     };
   },
   async run() {
-    const vpc = new sst.aws.Vpc("MyVpc");
+    const vpc = new sst.aws.Vpc("AstroSSTVpc");
     
     const bucket = new sst.aws.Bucket("MyBucket", {
       access: "public"
     });
 
-    const cluster = new sst.aws.Cluster("MyCluster", { vpc });
+    const cluster = new sst.aws.Cluster("AstroSSTCluster", { vpc });
   
-    cluster.addService("MyService", {
+    cluster.addService("AstroSSTContainerService", {
       loadBalancer: {
         ports: [{ listen: "80/http", forward: "4321/http" }],
       },

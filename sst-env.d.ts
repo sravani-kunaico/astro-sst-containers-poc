@@ -5,17 +5,17 @@
 
 declare module "sst" {
   export interface Resource {
-    "MyBucket": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
-    "MyService": {
+    "AstroSSTContainerService": {
       "service": string
       "type": "sst.aws.Service"
       "url": string
     }
-    "MyVpc": {
+    "AstroSSTVpc": {
       "type": "sst.aws.Vpc"
+    }
+    "MyBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
     }
   }
 }
