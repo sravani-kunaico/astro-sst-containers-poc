@@ -83,3 +83,31 @@ Steps:
 ## 👀 Want to learn more about SST?
 
 Feel free to check [SST Documentation](https://sst.dev/docs), [Astro on AWS with SST](https://sst.dev/docs/start/aws/astro)
+
+# Integrate Cloudflare infront of Fargate Service.
+
+Pre-Requisites:
+---------------
+1. Cloudflare account access
+2. Domain exists (sstpoc.uk is the test domain purchased for testing purposes)
+3. Please replace with your CLOUDFLARE_API_TOKEN in sst.env file for testing purposes
+
+Notes:
+------
+1. Once Fargate service is deployed, it exposes an application load balancer. The whole idea is instead of accessing this load balancer endpoint url, we are adding one more layer cloudflare infront of it to leverage cloudflare features.
+2. Below domain section defines how SST is configuring a Cloudflare DNS record for your domain (sstpoc.uk)   
+        
+        domain: {
+          name: "sstpoc.uk",
+          dns: sst.cloudflare.dns({
+            zone: "03353959adcc4a0e7a670199316debae", //This is the Cloudflare Zone ID associated with sstpoc.uk
+            proxy: true, //When enabled, Cloudflare proxies traffic instead of directly exposing the AWS ALB (Application Load Balancer) IP address.
+          }),
+        }
+3. With this, Cloudflare will act as a proxy, masking ALB’s real IP address. Traffic will be routed through Cloudflare’s global network, improving performance & security.
+4. To add more security, users should only be able to access application via sstpoc.uk and not via ALB's endpoint URL. So we are adding restrictions on load balancer to only allow traffic from Cloudflare IP's and not from any public IP.
+
+Troubleshoot Issues with SST Deploy/Remove:
+-------------------------------------------
+- If you deleted any records manually and if you run into issues saying record is already deleted or record does not exist during deploying/removal of application, try removing the state using below command
+        npx sst state remove <TargetToDelete>
